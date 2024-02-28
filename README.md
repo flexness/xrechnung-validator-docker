@@ -17,9 +17,12 @@ docker hub link: https://hub.docker.com/r/flx235/xr-validator-service
 
 ## hint @ run cmds
 - local run command: 
+
 `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H 0.0.0.0 -P 8081`
 - BUT: java validator is usually running on localhost, but for deployment the service inside docker needs to run on `-H 0.0.0.0`:
-- docker run command: `CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
+- docker run command: 
+
+`CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
 
 
 ## curl query example
