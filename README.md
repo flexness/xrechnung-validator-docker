@@ -19,7 +19,8 @@ docker hub link: https://hub.docker.com/r/flx235/xr-validator-service
 - local run command: 
 
 `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H 0.0.0.0 -P 8081`
-- BUT: java validator is usually running on localhost, but for deployment the service inside docker needs to run on `-H 0.0.0.0`:
+
+- BUT: java validator is usually running on localhost, so for deployment the service inside docker needs to run on `-H 0.0.0.0`
 - docker run command: 
 
 `CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
@@ -38,7 +39,21 @@ docker hub link: https://hub.docker.com/r/flx235/xr-validator-service
 ## deployment example: onrender.com
 - TBC
 
+## docker
 
+- Tag the existing image with :latest
+docker tag flx235/xr-validator-service:latest flx235/xr-validator-service:1.0
 
-also port forwarding: docker run -p 8081:8081 flx235/xr-validator-service:1.0
-kosit
+- Push the image with both tags. This will push the image with both :latest and :1.0 
+docker push flx235/xr-validator-service:latest
+docker push flx235/xr-validator-service:1.0
+
+- safe working docker image: docker save -o my-image.tar my-image
+- docker build -t flx235/xr-validator-service .
+- docker push flx235/xr-validator-service:<tag/name>
+    - docker push flx235/docker-xrvalidator-standalone:1:0
+- docker run -p 8081:8081 flx235/xr-validator-service:latest
+    - java service inside docker running on 0.0.0.0:8081, and docker exposing this on localhost:8081
+    
+- docker build -t flx235/xr-validator-service .
+- 

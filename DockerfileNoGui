@@ -30,4 +30,4 @@ EXPOSE 8081
 ENV JAVA_OPTS="-Xms64m -Xmx256m"
 
 # Set the default command to run the Java application
-CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]
+CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081", "--disable-gui"]
