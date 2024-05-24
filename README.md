@@ -18,7 +18,8 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
 ## notes
 - validator running in daemon mode (`-D`, `-H`, `-P`), so the validator gets as exposed as http service
-- running this repo/validator locally w/o docker: `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P 8081`
+- running this repo/validator locally w/o docker: 
+`java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P 8081`
 - for docker deployment, the service inside docker needs to run on `0.0.0.0`: `CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
 
 ## running/building locally
