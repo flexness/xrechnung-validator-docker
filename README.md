@@ -1,6 +1,6 @@
-# repo for a xrechnung validator docker image based on the kosit
+# docker image for the kosit validator for xrechnung XML invoices
 
-this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung
+this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
 
 docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
@@ -28,9 +28,6 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
 
-## alternative deployments
-- saas (tba)
-
 ## docker cmds
 - optional flag for build: `--no-cache`
 - docker build to run validator with gui: `docker build -t user/<image_name>:<tag> -f Dockerfile .`
@@ -40,3 +37,5 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to hub: `docker push user/<image_name>:<tag>`
 	
+## alternative deployments
+- saas (tba)
