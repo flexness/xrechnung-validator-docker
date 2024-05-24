@@ -1,4 +1,5 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
+validator version: 1.5.0 (latest), xrechnung configuration (latest)
 
 this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
 
@@ -44,6 +45,27 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 - safe working docker image as \*.tar file: `docker save -o my-image.tar my-image`
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to hub: `docker push user/<image_name>:<tag>`
-	
+
+## apache stuff (~current workaround to have htts server)
+- redirect http->https
+```
+<VirtualHost *:80>
+	ServerName <server>
+	Redirect permanent / https://<server>/
+</VirtualHost>
+```
+- get ssl certs [...]
+- proxy settings to force https and make service avaible on server/subdir
+```
+<VirtualHost *:443>
+	...
+	ProxyPreserveHost On
+	ProxyPass /subdir http://<server>/
+	ProxyPassReverse /subdir http://<server>/
+	...
+</VirtualHost>
+```
+- problem: service is still "forced" to live on http://<server>:<port>/ due to how source java applikation is designed
+
 ## alternative deployments
 - saas (tba)
