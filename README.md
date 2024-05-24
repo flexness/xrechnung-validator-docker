@@ -1,4 +1,4 @@
-# docker image for the kosit validator with xrechnung configuration
+# docker image for the kosit validator with xrechnung configuration (for ubl/cii)
 
 this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
 
@@ -24,6 +24,7 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - for docker deployment, the service inside docker needs to run on `0.0.0.0`:
 
 `CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
+- service is forced (java sourcecode) to run on root
 
 ## running/building locally
 - `git clone`
@@ -31,6 +32,9 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - `curl --location --request POST 'http://localhost:8081' --header 'Content-Type: application/xml' --data-binary "@ubl.xml"`
 - `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
+
+## `--disdable-gui`
+this repo is meant to provide a service that gets http(s) querries by a webapp, so gui can  be ignored 
 
 ## docker cmds
 - optional flag for build: `--no-cache`
