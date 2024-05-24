@@ -1,4 +1,4 @@
-# docker image for the kosit validator for xrechnung XML invoices
+# docker image for the kosit validator with xrechnung configuration
 
 this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
 
