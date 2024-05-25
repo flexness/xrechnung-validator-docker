@@ -60,45 +60,47 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 
 `sudo apt install -y docker-ce docker-ce-cli containerd.io`
 - pull and start validator: `docker pull`, `docker run`
-- optional: apache and ssl
-	- `sudo apt install certbot`
-	- `sudo certbot certonly --standalone -d <server>`
-	- `sudo apt install apache2`
-	- `sudo a2enmod ssl`
-	- `sudo nano /etc/apache2/sites-available/000-default.conf`
-	- `sudo a2ensite 000-default.conf`
-	- `sudo apachectl configtest`
-	- `sudo systemctl restart apache2`
-	- `sudo systemctl status apache2`
-	- `sudo systemctl restart apache2.service`
-	- `sudo journalctl -xeu apache2.service`
-	- `sudo a2enmod proxy`
-	- `sudo a2enmod proxy_http`
-	- `sudo a2query -m ssl` 
-	- `sudo tail -f /var/log/apache2/access.log`
 
-### optional: apache and current workaround to provide service via https (yes, newbie here)
-- redirect http->https
-```
-<VirtualHost *:80>
-	ServerName <server>
-	Redirect permanent / https://<server>/
-</VirtualHost>
-```
-- get ssl certs [...]
-- force https and make service avaible on <server>/<subdir>
-```
-<VirtualHost *:443>
-	...
-	ProxyPreserveHost On
-	ProxyPass /subdir http://<server>/
-	ProxyPassReverse /subdir http://<server>/
-	...
-</VirtualHost>
-```
-- problem: service is still "forced" to reside on `http://<server>:<port>/` due to how source java applikation is designed
+
+### optional: apache and current workaround to provide service via https
+hint: probably not needed in most cases. also, newbie here.
+- `sudo apt install certbot`
+- `sudo certbot certonly --standalone -d <server>`
+- `sudo apt install apache2`
+- `sudo a2enmod ssl`
+- `sudo nano /etc/apache2/sites-available/000-default.conf`
+- `sudo a2ensite 000-default.conf`
+- `sudo apachectl configtest`
+- `sudo systemctl restart apache2`
+- `sudo systemctl status apache2`
+- `sudo systemctl restart apache2.service`
+- `sudo journalctl -xeu apache2.service`
+- `sudo a2enmod proxy`
+- `sudo a2enmod proxy_http`
+- `sudo a2query -m ssl` 
+- `sudo tail -f /var/log/apache2/access.log`
+- proxy and redirects @apache config (`000-default.conf`):
+	- redirect http->https
+	```
+	<VirtualHost *:80>
+		ServerName <server>
+		Redirect permanent / https://<server>/
+	</VirtualHost>
+	```
+	- get ssl certs [...]
+	- force https and make service avaible on <server>/<subdir>
+	```
+	<VirtualHost *:443>
+		...
+		ProxyPreserveHost On
+		ProxyPass /subdir http://<server>/
+		ProxyPassReverse /subdir http://<server>/
+		...
+	</VirtualHost>
+	```
+- problem: service is still "forced" to reside on `http://<server>:<port>/` due to validator java sourecode
 
 ## future
 - alternative deployments (tba)
 - alternative ssl options (utilize docker) 
-- workaround to avoid server residing on http:port 
+- workaround to avoid server residing on http 
