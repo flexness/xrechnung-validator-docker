@@ -46,7 +46,43 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to hub: `docker push user/<image_name>:<tag>`
 
-## apache and current workaround to provide service via https
+## min overview run on linux vps
+- login: `ssh <server>`
+- update and upgrade packages: `sudo apt update` & `sudo apt upgrade`
+- install docker req. packages: 
+
+`sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common`
+- download docker for debian: 
+
+`curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -`
+- add docker to debian: 
+
+`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"`
+- install docker packages: 
+
+`sudo apt install -y docker-ce docker-ce-cli containerd.io`
+- pull and start validator: 
+	- `docker pull`
+	- `docker run`
+	- `docker ps`
+- extra: apache and ssl
+	- `sudo apt install certbot`
+	- `sudo certbot certonly --standalone -d <server>`
+	- `sudo apt install apache2`
+	- `sudo a2enmod ssl`
+	- `sudo nano /etc/apache2/sites-available/000-default.conf`
+	- `sudo a2ensite 000-default.conf`
+	- `sudo apachectl configtest`
+	- `sudo systemctl restart apache2`
+	- `sudo systemctl status apache2`
+	- `sudo systemctl restart apache2.service`
+	- `sudo journalctl -xeu apache2.service`
+	- `sudo a2enmod proxy`
+	- `sudo a2enmod proxy_http`
+	- `sudo a2query -m ssl` 
+	- `sudo tail -f /var/log/apache2/access.log`
+
+### apache and current workaround to provide service via https
 - redirect http->https
 ```
 <VirtualHost *:80>
@@ -67,5 +103,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 ```
 - problem: service is still "forced" to reside on `http://<server>:<port>/` due to how source java applikation is designed
 
-## alternative deployments
-- saas (tba)
+## future
+- alternative deployments (tba)
+- alternative ssl options (utilize docker) 
+- workaround to avoid server residing on http:port 
