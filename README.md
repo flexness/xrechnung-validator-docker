@@ -1,5 +1,5 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
-this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
+this repo is the source for a docker image, running a containerized version of the kosit XML validator for the german XRechnung
 
 docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
@@ -60,7 +60,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 
 `sudo apt install -y docker-ce docker-ce-cli containerd.io`
 - pull and start validator: `docker pull`, `docker run`
-- extra: apache and ssl
+- optional: apache and ssl
 	- `sudo apt install certbot`
 	- `sudo certbot certonly --standalone -d <server>`
 	- `sudo apt install apache2`
@@ -77,7 +77,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 	- `sudo a2query -m ssl` 
 	- `sudo tail -f /var/log/apache2/access.log`
 
-### apache and current workaround to provide service via https
+### optional: apache and current workaround to provide service via https (yes, newbie here)
 - redirect http->https
 ```
 <VirtualHost *:80>
