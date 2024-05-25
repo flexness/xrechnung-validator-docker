@@ -1,7 +1,7 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
 this repo is the source for a docker image, running a containerized version of the kosit validator for the german UBL and CII XML XRechnung invoice standard
 
-docker hub link: <a href="https://hub.docker.com/r/flx235/xr-validator-service" target="_blank">hub.docker.com/r/flx235/xr-validator-service</a>
+docker hub link: https://hub.docker.com/r/flx235/xr-validator-service
 
 
 
@@ -39,7 +39,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 ## min overview docker cmds
 - optional flag for build: `--no-cache`
 - docker build to run validator with gui: `docker build -t user/<image_name>:<tag> -f Dockerfile .`
-- docker build to run validator without gui:`docker build -t user/<image_name>:<tag> -f DockerfileNoGui .`
+- docker build to run validator without gui: `docker build -t user/<image_name>:<tag> -f DockerfileNoGui .`
 - run container: `docker run -p 8081:8081 user/<image_name>:<tag>` 
 - safe working docker image as \*.tar file: `docker save -o my-image.tar my-image`
 - tagging: `docker tag user/<image_name>:<tag>`
