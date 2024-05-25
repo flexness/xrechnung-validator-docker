@@ -1,7 +1,7 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
 this repo is the source for a docker image, running a containerized version of the kosit validator for the german UBL and CII XML XRechnung invoice standard
 
-docker hub link: <a href="https://hub.docker.com/r/user/xr-validator-service" target="_blank">hub.docker.com/r/user/xr-validator-service</a>
+docker hub link: <a href="https://hub.docker.com/r/flx235/xr-validator-service" target="_blank">hub.docker.com/r/flx235/xr-validator-service</a>
 
 
 
@@ -33,7 +33,7 @@ docker hub link: <a href="https://hub.docker.com/r/user/xr-validator-service" ta
 - `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
 
-## --disdable-gui flag and :nogui build
+## --disable-gui flag and :nogui build
 this repo is meant to provide a service that gets http(s) querries by a webapp, so gui can be ignored 
 
 ## min overview docker cmds
