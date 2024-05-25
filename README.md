@@ -1,7 +1,8 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
 this repo is the source for a docker image, running a containerized version of the kosit validator for the german UBL and CII XML XRechnung invoice standard
 
-docker hub link: https://hub.docker.com/r/user/xr-validator-service
+docker hub link: <a href="https://hub.docker.com/r/user/xr-validator-service" target="_blank">hub.docker.com/r/user/xr-validator-service</a>
+
 
 
 ## kosit sourcefiles (latest)
@@ -32,7 +33,7 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
 
-## `--disdable-gui`
+## --disdable-gui flag and :nogui build
 this repo is meant to provide a service that gets http(s) querries by a webapp, so gui can be ignored 
 
 ## min overview docker cmds
@@ -63,7 +64,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 
 
 ### optional: apache and current workaround to provide service via https
-hint: probably not needed in most cases. also, newbie here.
+hint: probably not needed in most cases (e.g. internal usage). also, apache/sys newbie here.
 - `sudo apt install certbot`
 - `sudo certbot certonly --standalone -d <server>`
 - `sudo apt install apache2`
