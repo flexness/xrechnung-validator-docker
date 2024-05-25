@@ -29,7 +29,7 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
 ## running/building locally
 - `git clone`
-- `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P <port>`
+- `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P 8081`
 - `curl --location --request POST 'http://localhost:8081' --header 'Content-Type: application/xml' --data-binary "@ubl.xml"`
 - `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
@@ -46,7 +46,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to hub: `docker push user/<image_name>:<tag>`
 
-## apache stuff (~current workaround to have htts server)
+## https & apache stuff (~current workaround to have https server)
 - redirect http->https
 ```
 <VirtualHost *:80>
@@ -55,7 +55,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 </VirtualHost>
 ```
 - get ssl certs [...]
-- proxy settings to force https and make service avaible on server/subdir
+- force https and make service avaible on <server>/subdir
 ```
 <VirtualHost *:443>
 	...
@@ -65,7 +65,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 	...
 </VirtualHost>
 ```
-- problem: service is still "forced" to live on http://<server>:<port>/ due to how source java applikation is designed
+- problem: service is still "forced" to reside on http://<server>:<port>/ due to how source java applikation is designed
 
 ## alternative deployments
 - saas (tba)
