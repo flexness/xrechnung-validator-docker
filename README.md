@@ -61,10 +61,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 - install docker packages: 
 
 `sudo apt install -y docker-ce docker-ce-cli containerd.io`
-- pull and start validator: 
-	- `docker pull`
-	- `docker run`
-	- `docker ps`
+- pull and start validator: `docker pull`, `docker run`
 - extra: apache and ssl
 	- `sudo apt install certbot`
 	- `sudo certbot certonly --standalone -d <server>`
@@ -81,6 +78,25 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 	- `sudo a2enmod proxy_http`
 	- `sudo a2query -m ssl` 
 	- `sudo tail -f /var/log/apache2/access.log`
+
+- extra: apache and ssl
+	```
+	sudo apt install certbot`
+	sudo certbot certonly --standalone -d <server>`
+	sudo apt install apache2`
+	sudo a2enmod ssl`
+	sudo nano /etc/apache2/sites-available/000-default.conf`
+	sudo a2ensite 000-default.conf`
+	sudo apachectl configtest`
+	sudo systemctl restart apache2`
+	sudo systemctl status apache2`
+	sudo systemctl restart apache2.service`
+	sudo journalctl -xeu apache2.service`
+	sudo a2enmod proxy`
+	sudo a2enmod proxy_http`
+	sudo a2query -m ssl` 
+	sudo tail -f /var/log/apache2/access.log`
+	```
 
 ### apache and current workaround to provide service via https
 - redirect http->https
