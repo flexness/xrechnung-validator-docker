@@ -46,7 +46,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to hub: `docker push user/<image_name>:<tag>`
 
-## https & apache stuff (~current workaround to have https server)
+## apache and current workaround to provide service via https
 - redirect http->https
 ```
 <VirtualHost *:80>
@@ -55,7 +55,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 </VirtualHost>
 ```
 - get ssl certs [...]
-- force https and make service avaible on <server>/subdir
+- force https and make service avaible on <server>/<subdir>
 ```
 <VirtualHost *:443>
 	...
@@ -65,7 +65,7 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 	...
 </VirtualHost>
 ```
-- problem: service is still "forced" to reside on http://<server>:<port>/ due to how source java applikation is designed
+- problem: service is still "forced" to reside on `http://<server>:<port>/` due to how source java applikation is designed
 
 ## alternative deployments
 - saas (tba)
