@@ -1,14 +1,12 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
-validator version: 1.5.0 (latest), xrechnung configuration (latest)
-
 this repo is the source for a docker image, running a containerized KOSIT validator for the german XRechnung (german e-invoicing standard)
 
 docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
 
 ## kosit sourcefiles (latest)
-- validator: https://github.com/itplr-kosit/validator (1.5.0)
-- validator xrechnung configuration: https://github.com/itplr-kosit/validator-configuration-xrechnung (release-2023-11-15)
+- validator: https://github.com/itplr-kosit/validator `1.5.0 (latest)`
+- validator xrechnung configuration: https://github.com/itplr-kosit/validator-configuration-xrechnung `release-2023-11-15`
 - files from the source included in the docker image:		
 	- `/libs`	
 	- `/resources`
@@ -27,7 +25,7 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 `CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]`
 - service is forced (java sourcecode) to run on root
 
-## running/building locally
+## running & building locally
 - `git clone`
 - `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P 8081`
 - `curl --location --request POST 'http://localhost:8081' --header 'Content-Type: application/xml' --data-binary "@ubl.xml"`
@@ -35,9 +33,9 @@ docker hub link: https://hub.docker.com/r/user/xr-validator-service
 - `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
 
 ## `--disdable-gui`
-this repo is meant to provide a service that gets http(s) querries by a webapp, so gui can  be ignored 
+this repo is meant to provide a service that gets http(s) querries by a webapp, so gui can be ignored 
 
-## docker cmds
+## min overview docker cmds
 - optional flag for build: `--no-cache`
 - docker build to run validator with gui: `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - docker build to run validator without gui:`docker build -t user/<image_name>:<tag> -f DockerfileNoGui .`
@@ -78,25 +76,6 @@ this repo is meant to provide a service that gets http(s) querries by a webapp, 
 	- `sudo a2enmod proxy_http`
 	- `sudo a2query -m ssl` 
 	- `sudo tail -f /var/log/apache2/access.log`
-
-- extra: apache and ssl
-	```
-	sudo apt install certbot`
-	sudo certbot certonly --standalone -d <server>`
-	sudo apt install apache2`
-	sudo a2enmod ssl`
-	sudo nano /etc/apache2/sites-available/000-default.conf`
-	sudo a2ensite 000-default.conf`
-	sudo apachectl configtest`
-	sudo systemctl restart apache2`
-	sudo systemctl status apache2`
-	sudo systemctl restart apache2.service`
-	sudo journalctl -xeu apache2.service`
-	sudo a2enmod proxy`
-	sudo a2enmod proxy_http`
-	sudo a2query -m ssl` 
-	sudo tail -f /var/log/apache2/access.log`
-	```
 
 ### apache and current workaround to provide service via https
 - redirect http->https
