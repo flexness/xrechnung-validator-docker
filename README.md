@@ -1,12 +1,12 @@
 # docker image for the kosit validator with xrechnung configuration (for ubl/cii)
-this repo is the source for a docker image, running a containerized version of the kosit XML validator for the german XRechnung
+this repo is the source for a docker image, running a containerized version of the kosit validator for the german UBL and CII XML XRechnung invoice standard
 
 docker hub link: https://hub.docker.com/r/user/xr-validator-service
 
 
 ## kosit sourcefiles (latest)
 - validator: https://github.com/itplr-kosit/validator `1.5.0 (latest)`
-- validator xrechnung configuration: https://github.com/itplr-kosit/validator-configuration-xrechnung `release-2023-11-15`
+- xrechnung configuration: https://github.com/itplr-kosit/validator-configuration-xrechnung `release-2023-11-15`
 - files from the source included in the docker image:		
 	- `/libs`	
 	- `/resources`
