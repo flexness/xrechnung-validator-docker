@@ -1,33 +1,36 @@
-# Use a smaller base image for building
-FROM adoptopenjdk:11-jre-hotspot AS builder
+# //////////// Build stage ////////////
+# FROM eclipse-temurin:11-jre as builder
+FROM eclipse-temurin:11-jre-alpine AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy only necessary application files
+# Copy only necessary files
 COPY validationtool-1.5.0-standalone.jar scenarios.xml EN16931-CII-validation.xslt EN16931-UBL-validation.xslt /app/
 COPY resources /app/resources
 
-# Use a minimal base image for the final image
-FROM alpine:3.14
+# //////////// Final runtime stage ////////////
+FROM eclipse-temurin:11-jre-alpine AS runtime
 
-# Install OpenJDK 11 JRE
-RUN apk --no-cache add openjdk11-jre
+# Create a non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy files from the builder stage
+# Copy built app from builder stage
 COPY --from=builder /app /app
 
-# Remove unnecessary files and dependencies
-# RUN rm -rf /app/resources
+# Set permissions (just in case)
+RUN chown -R appuser:appgroup /app
 
-# Expose port 8081
+# Switch to non-root user
+USER appuser
+
+# Expose only required port
 EXPOSE 8081
 
-# Set JVM options for memory optimization
-ENV JAVA_OPTS="-Xms64m -Xmx256m"
+# Healthcheck (optional but recommended)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD wget -qO- http://localhost:8081 || exit 1
 
-# Set the default command to run the Java application
-CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081"]
+# Run the app
+CMD ["java", "-jar", "validationtool-1.5.0-standalone.jar", "-s", "scenarios.xml", "-r", "/app", "-D", "-H", "0.0.0.0", "-P", "8081", "--disable-gui"]
