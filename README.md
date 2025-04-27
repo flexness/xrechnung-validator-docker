@@ -33,16 +33,15 @@ docker hub link: [flx235/xr-validator-service](https://hub.docker.com/r/flx235/x
 
 - `git clone`
 - start validator locally: `java -jar validationtool-1.5.0-standalone.jar -s scenarios.xml -r ${PWD} -D -H localhost -P 8081`
-- test running service with XRechnung XMLs `curl -i --location POST 'http://localhost:8081' --header 'Content-Type: application/xml' --data-binary "@test/ubl.xml"` (`-i` include headers in reponse)
+- test running service with XRechnung XMLs `curl -v -i --location POST 'http://localhost:8081' --header 'Content-Type: application/xml' --data-binary "@test/min_ubl.xml"` (`-i` include headers in reponse; `-v` for verbose logging)
 - build `docker build -t user/<image_name>:<tag> -f Dockerfile .`
 - run `docker run -p 8081:8081 <image_name>:<tag>` (port forwarding may be required)
 
 ## min overview docker cmds
 
-- optional flag for build: `--no-cache`
-- build container: `docker build -t user/<image_name>:<tag> -f Dockerfile .`
+- build container: `docker build -t user/<image_name>:<tag> -f Dockerfile .` (optional flag for build: `--no-cache`)
 - run container: `docker run -p 8081:8081 user/<image_name>:<tag>`
-- safe working docker image as \*.tar file: `docker save -o my-image.tar my-image`
+- safe docker image as \*.tar file: `docker save -o <image_name>.tar <image_name>`
 - tagging: `docker tag user/<image_name>:<tag>`
 - push to docker-hub: `docker push user/<image_name>:<tag>`
 
